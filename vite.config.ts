@@ -7,8 +7,9 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://hk.klizz.asia:7777',
+        target: 'http://hk.klizz.asia:7777/api/translation',
         changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ''), // 清除 /api 前缀避免路由冲突
       },
     },
     allowedHosts: [
