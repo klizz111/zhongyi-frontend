@@ -26,6 +26,7 @@ interface PatientData {
 }
 
 const STORAGE_KEY = "patientFormData";
+const RESONSE_STORRAGE_KEY = "responselocaldata";
 
 export function PatientForm() {
   const resultRef = useRef<HTMLDivElement>(null);
@@ -49,7 +50,10 @@ export function PatientForm() {
   const [error, setError] = useState<string>("");
   const [success, setSuccess] = useState<string>("");
   const [loading, setLoading] = useState(false);
-  const [response, setResponse] = useState<string>("");
+  const [response, setResponse] = useState<string>(
+    // 从 localStorage 获取缓存的响应
+    localStorage.getItem(RESONSE_STORRAGE_KEY) || ""
+  );
 
   // 当表单数据改变时保存到 localStorage
   useEffect(() => {
@@ -59,6 +63,7 @@ export function PatientForm() {
   // 当收到响应时滚动到诊断结果
   useEffect(() => {
     if (response && resultRef.current) {
+      localStorage.setItem(RESONSE_STORRAGE_KEY, response);
       resultRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   }, [response]);
@@ -95,6 +100,7 @@ ${data.allergies ? `过敏史：${data.allergies}` : ""}`;
     setSuccess("");
     setLoading(true);
     setResponse(""); // 清空之前的响应
+    localStorage.removeItem(RESONSE_STORRAGE_KEY); // 清除上次缓存的响应
 
     // 验证必填字段
     if (
@@ -254,7 +260,26 @@ ${data.allergies ? `过敏史：${data.allergies}` : ""}`;
           </Stack>
         </form>
       </Paper>
-
+      
+      {/* 只有存在上次的缓存响应且当前没有新响应时才显示上次诊断结果 */}
+      {localStorage.getItem(RESONSE_STORRAGE_KEY) && !loading && !response && (
+        <Paper shadow="sm" p="xl" withBorder>
+          <Stack spacing={20}>
+            <Title order={3}>上次诊断结果</Title>
+            <Box
+              sx={{
+                padding: "20px",
+                backgroundColor: "transparent",
+                borderRadius: "8px",
+                "& img": { maxWidth: "100%" },
+              }}
+            >
+              <ReactMarkdown>{localStorage.getItem(RESONSE_STORRAGE_KEY) || ""}</ReactMarkdown>
+            </Box>
+          </Stack>
+        </Paper>
+      )}
+      
       {/* 显示返回的markdown内容 */}
       {(loading || response) && (
         <Paper ref={resultRef} shadow="sm" p="xl" withBorder>
