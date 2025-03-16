@@ -1,4 +1,4 @@
-import { Paper, Title, Text, Stack } from '@mantine/core';
+import { Paper, Title, Text, Stack } from "@mantine/core";
 
 export default function TestPage() {
   return (

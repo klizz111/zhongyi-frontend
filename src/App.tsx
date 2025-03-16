@@ -5,7 +5,7 @@ import TestPage from './pages/test';
 
 function App() {
   return (
-    <MantineProvider theme={{ colorScheme: 'light' }}>
+    <MantineProvider theme={{ colorScheme: 'dark' }}>
       <BrowserRouter>
         <div style={{
           minHeight: '100vh',

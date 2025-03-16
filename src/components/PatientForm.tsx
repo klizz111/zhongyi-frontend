@@ -121,7 +121,7 @@ ${data.allergies ? `过敏史：${data.allergies}` : ''}`;
       <Paper shadow="sm" p="xl" withBorder>
         <form onSubmit={handleSubmit}>
           <Stack spacing={20}>
-            <Title order={2}>中医问诊表</Title>
+            <Title order={2} style={{ textAlign: 'center'}}> 中医问诊表</Title>
 
             <TextInput
               required
