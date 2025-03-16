@@ -36,15 +36,15 @@ export function PatientForm() {
     return savedData
       ? JSON.parse(savedData)
       : {
-          name: "",
-          age: "",
-          gender: "",
-          maritalStatus: "",
-          condition: "",
-          //tongue: "",
-          medicalHistory: "",
-          allergies: "",
-        };
+        name: "",
+        age: "",
+        gender: "",
+        maritalStatus: "",
+        condition: "",
+        //tongue: "",
+        medicalHistory: "",
+        allergies: "",
+      };
   });
 
   const [error, setError] = useState<string>("");
@@ -137,7 +137,7 @@ ${data.allergies ? `过敏史：${data.allergies}` : ""}`;
       const data = await response.json();
       if (data.response) {
         setSuccess("信息提交成功！");
-        setResponse(data.response); 
+        setResponse(data.response);
       } else {
         throw new Error("返回数据格式错误");
       }
@@ -260,7 +260,7 @@ ${data.allergies ? `过敏史：${data.allergies}` : ""}`;
           </Stack>
         </form>
       </Paper>
-      
+
       {/* 只有存在上次的缓存响应且当前没有新响应时才显示上次诊断结果 */}
       {localStorage.getItem(RESONSE_STORRAGE_KEY) && !loading && !response && (
         <Paper shadow="sm" p="xl" withBorder>
@@ -279,7 +279,7 @@ ${data.allergies ? `过敏史：${data.allergies}` : ""}`;
           </Stack>
         </Paper>
       )}
-      
+
       {/* 显示返回的markdown内容 */}
       {(loading || response) && (
         <Paper ref={resultRef} shadow="sm" p="xl" withBorder>
