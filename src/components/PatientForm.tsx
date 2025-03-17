@@ -13,6 +13,7 @@ import {
   Loader,
 } from "@mantine/core";
 import ReactMarkdown from "react-markdown";
+import { Helmet } from 'react-helmet-async';
 
 interface PatientData {
   name: string;
@@ -149,153 +150,127 @@ ${data.allergies ? `过敏史：${data.allergies}` : ""}`;
   };
 
   return (
-    <Stack spacing={30}>
-      <Paper shadow="sm" p="xl" withBorder>
-        <form onSubmit={handleSubmit}>
-          <Stack spacing={20}>
-            <Title order={2} style={{ textAlign: "center" }}>
-              {" "}
-              中医问诊表
-            </Title>
-
-            <TextInput
-              required
-              label="姓名"
-              value={formData.name}
-              onChange={(e) =>
-                setFormData({ ...formData, name: e.target.value })
-              }
-              placeholder="请输入您的姓名"
-            />
-
-            <TextInput
-              required
-              type="number"
-              label="年龄"
-              value={formData.age}
-              onChange={(e) =>
-                setFormData({ ...formData, age: e.target.value })
-              }
-              placeholder="请输入您的年龄"
-            />
-
-            <Select
-              required
-              label="性别"
-              value={formData.gender}
-              onChange={(value) =>
-                setFormData({ ...formData, gender: value || "" })
-              }
-              data={[
-                { value: "male", label: "男" },
-                { value: "female", label: "女" },
-                { value: "other", label: "其他" },
-              ]}
-              placeholder="请选择您的性别"
-            />
-
-            <Select
-              required
-              label="婚姻状况"
-              value={formData.maritalStatus}
-              onChange={(value) =>
-                setFormData({ ...formData, maritalStatus: value || "" })
-              }
-              data={[
-                { value: "single", label: "未婚" },
-                { value: "married", label: "已婚" },
-                { value: "divorced", label: "离异" },
-                { value: "widowed", label: "丧偶" },
-              ]}
-              placeholder="请选择您的婚姻状况"
-            />
-
-            <Textarea
-              required
-              label="病情描述"
-              value={formData.condition}
-              onChange={(e) =>
-                setFormData({ ...formData, condition: e.target.value })
-              }
-              placeholder="请描述您当前的症状和病情"
-              minRows={3}
-            />
-
-            <Textarea
-              label="既往病史（选填）"
-              value={formData.medicalHistory}
-              onChange={(e) =>
-                setFormData({ ...formData, medicalHistory: e.target.value })
-              }
-              placeholder="请输入您的既往病史（如有）"
-              minRows={2}
-            />
-
-            <Textarea
-              label="过敏史（选填）"
-              value={formData.allergies}
-              onChange={(e) =>
-                setFormData({ ...formData, allergies: e.target.value })
-              }
-              placeholder="请输入您的过敏史（如有）"
-              minRows={2}
-            />
-
-            {error && <Text color="red">{error}</Text>}
-            {success && <Text color="green">{success}</Text>}
-
-            <Group position="apart">
-              <Button type="submit" loading={loading}>
-                提交
-              </Button>
-              <Button
-                variant="outline"
-                color="gray"
-                onClick={clearForm}
-                disabled={loading}
-              >
-                清空表单
-              </Button>
-            </Group>
-          </Stack>
-        </form>
-      </Paper>
-
-      {/* 只有存在上次的缓存响应且当前没有新响应时才显示上次诊断结果 */}
-      {localStorage.getItem(RESONSE_STORRAGE_KEY) && !loading && !response && (
+    <>
+      <Helmet>
+        <title>患者信息表单</title>
+      </Helmet>
+      <Stack spacing={30}>
         <Paper shadow="sm" p="xl" withBorder>
-          <Stack spacing={20}>
-            <Title order={3}>上次诊断结果</Title>
-            <Box
-              sx={{
-                padding: "20px",
-                backgroundColor: "transparent",
-                borderRadius: "8px",
-                "& img": { maxWidth: "100%" },
-              }}
-            >
-              <ReactMarkdown>{localStorage.getItem(RESONSE_STORRAGE_KEY) || ""}</ReactMarkdown>
-            </Box>
-          </Stack>
-        </Paper>
-      )}
+          <form onSubmit={handleSubmit}>
+            <Stack spacing={20}>
+              <Title order={2} style={{ textAlign: "center" }}>
+                {" "}
+                中医问诊表
+              </Title>
 
-      {/* 显示返回的markdown内容 */}
-      {(loading || response) && (
-        <Paper ref={resultRef} shadow="sm" p="xl" withBorder>
-          <Stack spacing={20}>
-            <Title order={3}>诊断结果</Title>
-            {loading ? (
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "center",
-                  padding: "20px",
-                }}
-              >
-                <Loader />
-              </Box>
-            ) : (
+              <TextInput
+                required
+                label="姓名"
+                value={formData.name}
+                onChange={(e) =>
+                  setFormData({ ...formData, name: e.target.value })
+                }
+                placeholder="请输入您的姓名"
+              />
+
+              <TextInput
+                required
+                type="number"
+                label="年龄"
+                value={formData.age}
+                onChange={(e) =>
+                  setFormData({ ...formData, age: e.target.value })
+                }
+                placeholder="请输入您的年龄"
+              />
+
+              <Select
+                required
+                label="性别"
+                value={formData.gender}
+                onChange={(value) =>
+                  setFormData({ ...formData, gender: value || "" })
+                }
+                data={[
+                  { value: "male", label: "男" },
+                  { value: "female", label: "女" },
+                  { value: "other", label: "其他" },
+                ]}
+                placeholder="请选择您的性别"
+              />
+
+              <Select
+                required
+                label="婚姻状况"
+                value={formData.maritalStatus}
+                onChange={(value) =>
+                  setFormData({ ...formData, maritalStatus: value || "" })
+                }
+                data={[
+                  { value: "single", label: "未婚" },
+                  { value: "married", label: "已婚" },
+                  { value: "divorced", label: "离异" },
+                  { value: "widowed", label: "丧偶" },
+                ]}
+                placeholder="请选择您的婚姻状况"
+              />
+
+              <Textarea
+                required
+                label="病情描述"
+                value={formData.condition}
+                onChange={(e) =>
+                  setFormData({ ...formData, condition: e.target.value })
+                }
+                placeholder="请描述您当前的症状和病情"
+                minRows={3}
+              />
+
+              <Textarea
+                label="既往病史（选填）"
+                value={formData.medicalHistory}
+                onChange={(e) =>
+                  setFormData({ ...formData, medicalHistory: e.target.value })
+                }
+                placeholder="请输入您的既往病史（如有）"
+                minRows={2}
+              />
+
+              <Textarea
+                label="过敏史（选填）"
+                value={formData.allergies}
+                onChange={(e) =>
+                  setFormData({ ...formData, allergies: e.target.value })
+                }
+                placeholder="请输入您的过敏史（如有）"
+                minRows={2}
+              />
+
+              {error && <Text color="red">{error}</Text>}
+              {success && <Text color="green">{success}</Text>}
+
+              <Group position="apart">
+                <Button type="submit" loading={loading}>
+                  提交
+                </Button>
+                <Button
+                  variant="outline"
+                  color="gray"
+                  onClick={clearForm}
+                  disabled={loading}
+                >
+                  清空表单
+                </Button>
+              </Group>
+            </Stack>
+          </form>
+        </Paper>
+
+        {/* 只有存在上次的缓存响应且当前没有新响应时才显示上次诊断结果 */}
+        {localStorage.getItem(RESONSE_STORRAGE_KEY) && !loading && !response && (
+          <Paper shadow="sm" p="xl" withBorder>
+            <Stack spacing={20}>
+              <Title order={3}>上次诊断结果</Title>
               <Box
                 sx={{
                   padding: "20px",
@@ -304,12 +279,43 @@ ${data.allergies ? `过敏史：${data.allergies}` : ""}`;
                   "& img": { maxWidth: "100%" },
                 }}
               >
-                <ReactMarkdown>{response}</ReactMarkdown>
+                <ReactMarkdown>{localStorage.getItem(RESONSE_STORRAGE_KEY) || ""}</ReactMarkdown>
               </Box>
-            )}
-          </Stack>
-        </Paper>
-      )}
-    </Stack>
+            </Stack>
+          </Paper>
+        )}
+
+        {/* 显示返回的markdown内容 */}
+        {(loading || response) && (
+          <Paper ref={resultRef} shadow="sm" p="xl" withBorder>
+            <Stack spacing={20}>
+              <Title order={3}>诊断结果</Title>
+              {loading ? (
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    padding: "20px",
+                  }}
+                >
+                  <Loader />
+                </Box>
+              ) : (
+                <Box
+                  sx={{
+                    padding: "20px",
+                    backgroundColor: "transparent",
+                    borderRadius: "8px",
+                    "& img": { maxWidth: "100%" },
+                  }}
+                >
+                  <ReactMarkdown>{response}</ReactMarkdown>
+                </Box>
+              )}
+            </Stack>
+          </Paper>
+        )}
+      </Stack>
+    </>
   );
 }

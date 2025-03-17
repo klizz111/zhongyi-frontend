@@ -12,6 +12,7 @@ import {
   FileInput,
 } from "@mantine/core";
 import ReactMarkdown from "react-markdown";
+import { Helmet } from "react-helmet-async";
 
 const LOCAL_IMG_PATH = "localImg";
 const TONGUE_RESPONSE_KEY = "tongueResponseData";
@@ -113,6 +114,10 @@ export function Tongueinspect() {
   };
 
   return (
+    <>
+    <Helmet>
+      <title>舌苔分析</title>
+    </Helmet>
     <Stack spacing={30}>
       <Paper shadow="sm" padding="xl" withBorder>
         <form onSubmit={handleSubmit}>
@@ -237,5 +242,6 @@ export function Tongueinspect() {
         </Paper>
       )}
     </Stack>
+    </>
   );
 }
