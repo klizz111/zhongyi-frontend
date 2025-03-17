@@ -2,7 +2,7 @@ import { MantineProvider } from '@mantine/core';
 import { BrowserRouter, Routes, Route, Navigate, Link } from 'react-router-dom';
 import { PatientForm } from './components/PatientForm';
 import TestPage from './pages/test';
-import { NotFund } from './pages/Notfund';
+import { NotFound } from './pages/Notfound';
 import { HelmetProvider } from 'react-helmet-async';
 import { Tongueinspect } from './components/Tongueinspect';
 
@@ -24,7 +24,7 @@ function App() {
                 <Route path="/test" element={<TestPage />} />
                 <Route path="/Tongueinspect" element={<Tongueinspect />} />
                 {/*<Route path="*" element={<Navigate to="/" replace />} />*/}
-                <Route path="*" element={<NotFund />} />
+                <Route path="*" element={<NotFound />} />
               </Routes>
 
               <div style={{ marginTop: '20px', textAlign: 'center' }}>
