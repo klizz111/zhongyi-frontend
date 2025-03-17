@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, use } from "react";
 import {
   TextInput,
   Select,
@@ -30,6 +30,9 @@ const STORAGE_KEY = "patientFormData";
 const RESONSE_STORRAGE_KEY = "responselocaldata";
 
 export function PatientForm() {
+  useEffect(() => {
+    document.title = "患者信息表单";
+  }, []);
   const resultRef = useRef<HTMLDivElement>(null);
   const [formData, setFormData] = useState<PatientData>(() => {
     // 从 localStorage 获取缓存的数据

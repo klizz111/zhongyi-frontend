@@ -18,6 +18,9 @@ const LOCAL_IMG_PATH = "localImg";
 const TONGUE_RESPONSE_KEY = "tongueResponseData";
 
 export function Tongueinspect() {
+  useEffect(() => {
+    document.title = "舌苔分析";
+  }, []);
   const resultRef = useRef<HTMLDivElement>(null);
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
