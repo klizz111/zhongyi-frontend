@@ -5,6 +5,7 @@ import TestPage from './pages/test';
 import { NotFound } from './pages/Notfound';
 import { HelmetProvider } from 'react-helmet-async';
 import { Tongueinspect } from './components/Tongueinspect';
+import DataBase from './pages/DataBase';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
                 <Route path="/" element={<PatientForm />} />
                 <Route path="/test" element={<TestPage />} />
                 <Route path="/Tongueinspect" element={<Tongueinspect />} />
+                <Route path="/database" element={<DataBase/>} />
                 {/*<Route path="*" element={<Navigate to="/" replace />} />*/}
                 <Route path="*" element={<NotFound />} />
               </Routes>
