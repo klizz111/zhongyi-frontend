@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, use } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   TextInput,
   Select,
@@ -24,6 +24,7 @@ interface PatientData {
   // tongue?: ImageData; // 舌苔照片
   medicalHistory: string;
   allergies: string;
+  otherInfo: string; // 添加其他信息字段
 }
 
 const STORAGE_KEY = "patientFormData";
@@ -48,6 +49,7 @@ export function PatientForm() {
         //tongue: "",
         medicalHistory: "",
         allergies: "",
+        otherInfo: "", // 初始化其他信息字段
       };
   });
 
@@ -81,7 +83,8 @@ export function PatientForm() {
 婚姻状况：${data.maritalStatus}
 病情描述：${data.condition}
 ${data.medicalHistory ? `既往病史：${data.medicalHistory}` : ""}
-${data.allergies ? `过敏史：${data.allergies}` : ""}`;
+${data.allergies ? `过敏史：${data.allergies}` : ""}
+${data.otherInfo ? `其他信息：${data.otherInfo}` : ""}`;
   };
 
   const clearForm = () => {
@@ -93,6 +96,7 @@ ${data.allergies ? `过敏史：${data.allergies}` : ""}`;
       condition: "",
       medicalHistory: "",
       allergies: "",
+      otherInfo: "", // 清空其他信息字段
     });
     localStorage.removeItem(STORAGE_KEY);
     setResponse(""); // 清空响应内容
@@ -246,6 +250,16 @@ ${data.allergies ? `过敏史：${data.allergies}` : ""}`;
                   setFormData({ ...formData, allergies: e.target.value })
                 }
                 placeholder="请输入您的过敏史（如有）"
+                minRows={2}
+              />
+
+              <Textarea
+                label="其他信息（选填）"
+                value={formData.otherInfo}
+                onChange={(e) =>
+                  setFormData({ ...formData, otherInfo: e.target.value })
+                }
+                placeholder="请输入其他重要信息（如有）"
                 minRows={2}
               />
 
