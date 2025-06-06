@@ -1,5 +1,5 @@
-import { Stack, Header, Group, Text, Button, TextInput, ActionIcon, Divider, Box, Container } from "@mantine/core";
-import { useEffect, useState } from "react";
+import { Stack, Header, Group, Text, Button, TextInput, ActionIcon, Container } from "@mantine/core";
+import { useEffect } from "react";
 import { IconSearch, IconUser, IconMessage } from '@tabler/icons-react';
 
 function NavigationBar() {
