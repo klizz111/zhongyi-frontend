@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>莞月沉檀🌸</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+</head>
+<body>
+    
+</body>
+<script>
+    let target = 'https://api.bilibili.com/x/web-interface/nav'
+    fetch(target)
+    .then(res => res.json())
+    .then(data => {
+        console.log(data)
+        document.createElement('div').innerHTML = data.data
+    })
+</script>
+</html>
