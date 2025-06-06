@@ -23,7 +23,7 @@ function App() {
           }}>
             <div style={{ width: '100%', maxWidth: '800px' }}>
               <Routes>
-                <Route path="/" element={<PatientForm />} />
+                <Route path="/" element={<ConstitutionTest />} />
                 <Route path="/test" element={<TestPage />} />
                 <Route path="/Tongueinspect" element={<Tongueinspect />} />
                 <Route path="/constitution-test" element={<ConstitutionTest />} />
