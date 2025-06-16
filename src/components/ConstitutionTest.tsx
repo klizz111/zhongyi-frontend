@@ -56,6 +56,16 @@ interface ConstitutionData {
 const STORAGE_KEY = "constitutionTestData";
 const RESPONSE_STORAGE_KEY = "constitutionTestResponse";
 
+// 根据环境确定 API 地址
+const getApiUrl = () => {
+  // 如果是生产环境（HTTPS），使用 HTTPS API
+  if (window.location.protocol === 'https:') {
+    return "https://hk.klizz.asia:7777/api"; // 需要后端支持 HTTPS
+  }
+  // 开发环境使用 HTTP
+  return "http://hk.klizz.asia:7777/api";
+};
+
 export function ConstitutionTest() {
   useEffect(() => {
     document.title = "体质测试";
@@ -197,7 +207,7 @@ BMI：${bmi}
     }
 
     try {
-      const response = await fetch("/api", {
+      const response = await fetch(getApiUrl(), {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
